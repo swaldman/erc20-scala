@@ -28,10 +28,10 @@ contract UnexpectedTokenHandler {
      _;
    }
 
-   function withdrawUnexpectedToken( address tokenContract ) public unexpectedTokenOwnerOnly {
+   function withdrawUnexpectedToken( address tokenContract ) public unexpectedTokenOwnerOnly returns (bool) {
      require ( expectedTokens[ tokenContract ] == 0 ); // only allow withdrawals of unexpected tokens
 
      ERC20 token = ERC20( tokenContract );
-     token.transfer( unexpectedTokenOwner, token.balanceOf(this) );
+     return token.transfer( unexpectedTokenOwner, token.balanceOf(this) );
    }
 }
