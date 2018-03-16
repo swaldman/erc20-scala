@@ -3,13 +3,20 @@ pragma solidity ^0.4.18;
 import "ERC20.sol";
 
 contract UnexpectedTokenHandler {
-   address public unexpectedTokenOwner; // only getters are autocreated
+   address public unexpectedTokenOwner; // only getter is autocreated
 
-   mapping (address => uint8) public expectedTokens; // only getters are autocreated
+   mapping (address => uint8) private expectedTokens;
 
-
-   function markExpected( address tokenContract ) internal { 
+   /*
+    * this should be called as many times as necessary in the
+    * constructor of inheriting contracts.
+    */
+   function markExpectedToken( address tokenContract ) internal { 
       expectedTokens[ tokenContract ] = 1;
+   }
+
+   function isExpectedToken( address tokenContract ) public returns ( bool ) {
+      return expectedTokens[ tokenContract ] != 0;
    }
 
    function UnexpectedTokenHandler( address _unexpectedTokenOwner ) public {
