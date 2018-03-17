@@ -15,7 +15,7 @@ contract UnexpectedTokenHandler {
       expectedTokens[ tokenContract ] = 1;
    }
 
-   function isExpectedToken( address tokenContract ) public returns ( bool ) {
+   function isExpectedToken( address tokenContract ) view public returns ( bool ) {
       return expectedTokens[ tokenContract ] != 0;
    }
 
